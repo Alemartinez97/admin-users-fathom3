@@ -1,34 +1,34 @@
-const { findUsers, findUserById, addUser, editUser, deleteUserById } = require("../repositories/userRepository");
+import { IUserModel, User } from "../models/user.interface";
+import userRepository from "../repositories/userRepository";
+const userService: User = {
+    getAllUsers: async (): Promise<IUserModel[]> => {
+        const result = await userRepository.getAllUsers();
+        return result;
+    },
 
-const getAllUsers = async () => {
-    const result = await findUsers();
-    return result;
+    getUserById: async (userId: number): Promise<IUserModel | null> => {
+        const id = Number(userId);
+        const result = await userRepository.getUserById(id);
+        return result;
+    },
+
+    createUser: async (payload: IUserModel): Promise<IUserModel> => {
+        const result = await userRepository.createUser(payload);
+        return result;
+    },
+
+    updateUser: async (userId: number, payload: IUserModel): Promise<IUserModel> => {
+        const id = Number(userId);
+        const result = await userRepository.updateUser(id, payload);
+        return result;
+    },
+
+    deleteUser: async (userId: number): Promise<IUserModel> => {
+        const id = Number(userId);
+        const result = await userRepository.deleteUser(id);
+        return result;
+    }
 }
 
-const getUserById = async (userId: string) => {
-    const result = await findUserById(userId);
-    return result;
-}
 
-const createUser = async (payload: string) => {
-    const result = await addUser(payload);
-    return result;
-}
-
-const updateUser = async (userId: string, payload: string) => {
-    const result = await editUser(userId, payload);
-    return result;
-}
-
-const deleteUser = async (userId: string) => {
-    const result = await deleteUserById(userId);
-    return result;
-}
-
-export const userService = {
-    getAllUsers,
-    getUserById,
-    createUser,
-    updateUser,
-    deleteUser
-}
+export default userService;

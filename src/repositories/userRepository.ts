@@ -1,58 +1,43 @@
-const { PrismaClient } = require("@prisma/client");
+import { IUserModel, User } from "../models/user.interface";
+
+import { PrismaClient } from "@prisma/client";
 const prisma = new PrismaClient();
+const userRepository: User = {
+    getAllUsers: async (): Promise<IUserModel[]> => {
+        return await prisma.user.findMany();
+    },
 
-const findUsers = () => {
-    return prisma.user.findMany();
-};
+    getUserById: async (id: number): Promise<IUserModel | null> => {
+        return prisma.user.findUnique({
+            where: {
+                dni: id,
+            },
+        })
+    },
 
-const findUserById = (userId: string) => {
-    const id = Number(userId);
-    return prisma.user.findUnique({
-        where: {
-            dni: id,
-        },
-    })
-};
+    createUser: async (payload: IUserModel): Promise<IUserModel> => {
+        return await prisma.user.create({
+            data: payload,
+        })
+    },
 
-const addUser = (payload: any) => {
-    const { name, email, surname, age, phone, dni } = payload;
-    return prisma.user.create({
-        data: {
-            name: name,
-            surname: surname,
-            Age: age,
-            phone: phone,
-            dni: dni,
-            email: email
-        },
-    })
-};
+    updateUser: async (id: number, payload: IUserModel): Promise<IUserModel> => {
+        return prisma.user.update({
+            where: {
+                dni: id,
+            },
+            data: payload,
+        })
+    },
 
-const editUser = (userId: string, payload: any) => {
-    const id = Number(userId);
-    const { name, email, surname, age, phone, dni } = payload;
-    return prisma.user.update({
-        where: {
-            dni: id,
-        },
-        data: {
-            name: name,
-            surname: surname,
-            Age: age,
-            phone: phone,
-            dni: dni,
-            email: email
-        },
-    })
-};
+    deleteUser: async (id: number): Promise<IUserModel> => {
+        return prisma.user.delete({
+            where: {
+                dni: id,
+            },
+        })
+    }
+}
 
-const deleteUserById = (userId: string) => {
-    const id = Number(userId);
-    return prisma.user.delete({
-        where: {
-            dni: id,
-        },
-    })
-};
 
-module.exports = { findUsers, addUser, editUser, findUserById, deleteUserById };
+export default userRepository;
