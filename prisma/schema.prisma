@@ -16,4 +16,5 @@ model User {
   surname  String?
   age   Int
   phone Int
+  password String
 }

@@ -1,6 +1,6 @@
 import { IUserModel, User } from "../models/user.interface";
-
 import { PrismaClient } from "@prisma/client";
+
 const prisma = new PrismaClient();
 const userRepository: User = {
     getAllUsers: async (): Promise<IUserModel[]> => {
@@ -11,6 +11,14 @@ const userRepository: User = {
         return prisma.user.findUnique({
             where: {
                 dni: id,
+            },
+        })
+    },
+
+    getUserByEmail: async (email: string): Promise<IUserModel | null> => {
+        return prisma.user.findUnique({
+            where: {
+                email: email,
             },
         })
     },

@@ -4,8 +4,9 @@ CREATE TABLE "User" (
     "email" TEXT NOT NULL,
     "name" TEXT,
     "surname" TEXT,
-    "Age" INTEGER NOT NULL,
+    "age" INTEGER NOT NULL,
     "phone" INTEGER NOT NULL,
+    "password" TEXT NOT NULL,
 
     CONSTRAINT "User_pkey" PRIMARY KEY ("dni")
 );

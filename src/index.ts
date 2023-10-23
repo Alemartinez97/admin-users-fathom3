@@ -1,4 +1,6 @@
 const fastify = require('./routers/users.routes');
+require("./auth/auth");
+// const fastifyAuth = require('./routers/auth.routers')
 const cors = require('fastify-cors');
 fastify.register(cors, {
   origin: '*',
