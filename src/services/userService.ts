@@ -34,6 +34,7 @@
 // export default userService;
 import { IUserModel, User } from "../models/user.interface";
 import userRepository from "../repositories/userRepository";
+import { hashedPassword } from "../utils/hashedPassword";
 
 const userService: User = {
     getAllUsers: async (): Promise<IUserModel[]> => {
@@ -59,6 +60,9 @@ const userService: User = {
 
     createUser: async (payload: IUserModel): Promise<IUserModel> => {
         try {
+            if (payload.password) {
+                payload.password = await hashedPassword(payload.password);
+            }
             const result = await userRepository.createUser(payload);
             return result;
         } catch (error) {
@@ -88,7 +92,7 @@ const userService: User = {
             throw error;
         }
     },
-    
+
     getUserByEmail: async (email: string): Promise<IUserModel | null> => {
         try {
             const result = await userRepository.getUserByEmail(email);

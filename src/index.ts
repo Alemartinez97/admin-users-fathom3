@@ -1,6 +1,5 @@
 const fastify = require('./routers/users.routes');
 require("./auth/auth");
-// const fastifyAuth = require('./routers/auth.routers')
 const cors = require('fastify-cors');
 fastify.register(cors, {
   origin: '*',
@@ -10,7 +9,6 @@ fastify.register(cors, {
   exposedHeaders: ['Authorization', 'Content-Type'],
   optionsSuccessStatus: 204
 });
-//   fastify.register(userRoutes, { prefix: '/v1' });
 
 const start = async () => {
   try {

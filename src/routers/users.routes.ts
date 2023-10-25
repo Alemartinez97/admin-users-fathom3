@@ -1,15 +1,20 @@
-const { getAllUsers, getUserById, createUser, updateUser, deleteUser } = require("../controllers/usersControllers");
+const moment = require("moment");
+const passport = require("passport");
+const jwt = require("jsonwebtoken");
+const { getAllUsers, getUserById, createUser, updateUser, deleteUser } = require("../controllers/usersController");
 const middleware = require("../middleware/auth");
+const split = require('split2')
+const stream = split(JSON.parse)
+// const fastify = require('fastify')({
+//   logger: {
+//   level: 'info',
+//   stream: stream
+// }
+// });
 const fastify = require('fastify')({
   logger: true,
   ignoreTrailingSlash: true
 });
-const moment = require("moment");
-const passport = require("passport");
-const jwt = require("jsonwebtoken");
-// const fastifyPassport = require('@fastify/passport');
-// fastify.register(fastifyPassport.initialize())
-// fastify.register(fastifyPassport.secureSession())
 fastify.get('/users', { preHandler: [middleware] }, getAllUsers);
 fastify.get('/users/:id', getUserById);
 fastify.post('/users', createUser);
@@ -38,16 +43,17 @@ fastify.post("/login", async (req: any, res: any, next: any) => {
       req.login(user, { session: false }, async (err: Error) => {
         if (err) return next(err);
         const body = {
-          _id: user._id,
+          // _id: user.dni,
           email: user.email,
           iat: moment().unix(),
           exp: moment().add(5, "minutes").unix(),
         };
         const token = jwt.sign(body, "top_secret");
-        return res.json({ token });
+        console.log(token)
+        return res.json(token);
       });
     } catch (e) {
-      res.status(401).json({
+      res.status(401).send({
         error: new Error("Invalid request!"),
       });
     }
@@ -58,7 +64,7 @@ fastify.get(
   "/profile",
   { preValidation: passport.authenticate("jwt", { session: false }) },
   (req: any, res: any, next: any) => {
-    res.json({
+    res.send({
       message: "You did it!",
       user: req.user,
       token: req.query.secret_token,
