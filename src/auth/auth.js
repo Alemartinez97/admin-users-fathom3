@@ -16,7 +16,6 @@ passport.use(
     },
     async (req, email, password, done) => {
       const { body } = req;
-      console.log(body); 
       try {
         const user = await userService.createUser(body);
         return done(null, user);
@@ -40,9 +39,8 @@ passport.use(
         if (!user) {
           return done(null, false, { message: "User not found" });
         }
-
-        const validate = await isValidPassword('$2b$10$LuP29kbGKAA7U9n9xgpRXe99aWrP6EKYFgfrxx2mpzEiSVVzMX3uy', password);
-        console.log("validate: ",validate)
+        console.log("validate: ",password)
+        const validate = await isValidPassword(user.password, password);
         if (!validate) {
           console.error("Wrong password");
           return done(null, false);

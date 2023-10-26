@@ -2,7 +2,6 @@ const jwt = require("jsonwebtoken");
 const moment = require("moment");
 module.exports = async (req, res, next) => {
   try {
-    // const token = req.headers.authorization.replace(/['"]+/g, "");
     const token = req.headers.authorization.split(" ")[1];
     const decodedToken = jwt.decode(token, "top_secret");
     const userEmail = decodedToken.email;
