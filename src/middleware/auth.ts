@@ -1,8 +1,12 @@
 const jwt = require("jsonwebtoken");
 const moment = require("moment");
-module.exports = async (req, res, next) => {
+
+import { FastifyReply, FastifyRequest } from 'fastify';
+
+module.exports = async (req: FastifyRequest, res: FastifyReply, next: any) => {
   try {
-    const token = req.headers.authorization.split(" ")[1];
+    const authorizationHeader = req.headers['authorization'];
+    const token = authorizationHeader ? authorizationHeader.split(" ")[1] : null;
     const decodedToken = jwt.decode(token, "top_secret");
     const userEmail = decodedToken.email;
     if (!userEmail) {
@@ -14,7 +18,7 @@ module.exports = async (req, res, next) => {
     }
     next();
   } catch (e) {
-    res.status(401).json({
+    res.status(401).send({
       error: new Error("Invalid request!"),
     });
   }

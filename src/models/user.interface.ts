@@ -9,7 +9,7 @@ export interface User {
 
 
 export interface IUserModel {
-    name?: string | null,
+    name: string | null,
     dni: number,
     email: string,
     surname: string | null,
