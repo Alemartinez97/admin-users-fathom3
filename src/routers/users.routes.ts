@@ -6,8 +6,8 @@ const fastify = require('fastify')({
   logger: true,
   ignoreTrailingSlash: true
 });
-fastify.get('/users', { preHandler: [middleware] }, getAllUsers);
-fastify.get('/users/:id', { preHandler: [middleware] }, getUserById);
+fastify.get('/users', getAllUsers);
+fastify.get('/users/:id', getUserById);
 fastify.post('/users', { preHandler: [middleware] }, createUser);
 fastify.put('/users/:id', { preHandler: [middleware] }, updateUser);
 fastify.delete('/users/:id', { preHandler: [middleware] }, deleteUser);
