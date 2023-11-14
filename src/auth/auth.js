@@ -39,7 +39,6 @@ passport.use(
         if (!user) {
           return done(null, false, { message: "User not found" });
         }
-        console.log("validate: ",password)
         const validate = await isValidPassword(user.password, password);
         if (!validate) {
           console.error("Wrong password");

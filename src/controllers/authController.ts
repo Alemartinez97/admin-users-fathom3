@@ -13,9 +13,8 @@ export const signup = async (req: FastifyRequest, res: FastifyReply, next: any) 
 
 export const login = async (req: FastifyRequest, res: FastifyReply, next: any) => {
     try {
-
         const response = await authService.login(req, res, next);
-        res.status(200).send(response);
+        res.status(200).send({ message: 'login success', token: response });
     } catch (error) {
         console.error(error);
         res.status(500).send({ error: "Error al iniciar sesion" });

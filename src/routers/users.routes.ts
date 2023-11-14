@@ -17,7 +17,7 @@ fastify.post(
   signup
 );
 
-fastify.post("/login", login);
+fastify.post("/login", { preValidation: passport.authenticate("login", { session: false }) }, login);
 
 fastify.get(
   "/profile",
