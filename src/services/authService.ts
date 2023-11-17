@@ -47,6 +47,7 @@ const authService: Auth = {
                             return done(null, false, { message: "User not found" });
                         }
                         const validate = await isValidPassword(user.password, password);
+                        console.log(validate);
                         if (!validate) {
                             console.error("Wrong password");
                             return done(null, false);

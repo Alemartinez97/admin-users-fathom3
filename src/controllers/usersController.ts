@@ -40,7 +40,7 @@ export const createUser = async (req: any, res: any) => {
         }
 
         const users = await userService.createUser(payload);
-        res.status(201).send(users);
+        res.status(200).send(users);
     } catch (error) {
         console.error(error);
         res.status(500).send({ error: "Error al crear el usuario" });
@@ -66,7 +66,7 @@ export const updateUser = async (req: any, res: any) => {
             return res.status(404).send({ error: "Usuario no encontrado." });
         }
 
-        res.status(200).send(users);
+        res.status(201).send(users);
     } catch (error) {
         console.error(error);
         res.status(500).send({ error: "Error al actualizar el usuario" });
