@@ -26,6 +26,9 @@ const userService: User = {
 
     createUser: async (payload: IUserModel): Promise<IUserModel> => {
         try {
+            if (typeof (payload.age) === 'string') payload.age = Number(payload.age);
+            if (typeof (payload.dni) === 'string') payload.dni = Number(payload.dni);
+            if (typeof (payload.phone) === 'string') payload.phone = Number(payload.phone);
             if (payload.password) {
                 payload.password = await hashedPassword(payload.password);
             }
@@ -40,6 +43,13 @@ const userService: User = {
     updateUser: async (userId: number, payload: IUserModel): Promise<IUserModel> => {
         try {
             const id = Number(userId);
+            if (typeof (payload.age) === 'string') payload.age = Number(payload.age);
+            if (typeof (payload.dni) === 'string') payload.dni = Number(payload.dni);
+            if (typeof (payload.phone) === 'string') payload.phone = Number(payload.phone);
+            const user = await userService.getUserByEmail(payload.email);
+            if (payload.password !== user?.password) {
+                payload.password = await hashedPassword(payload.password);
+            }
             const result = await userRepository.updateUser(id, payload);
             return result;
         } catch (error) {

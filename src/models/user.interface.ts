@@ -15,5 +15,6 @@ export interface IUserModel {
     surname: string | null,
     phone: number,
     age: number,
-    password: string
+    password: string,
+    role: string
 }

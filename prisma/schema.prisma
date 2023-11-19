@@ -17,4 +17,5 @@ model User {
   age   Int
   phone Int
   password String
+  role String
 }
