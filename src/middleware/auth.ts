@@ -9,6 +9,10 @@ module.exports = async (req: FastifyRequest, res: FastifyReply, next: any) => {
     const token = authorizationHeader ? authorizationHeader.split(" ")[1] : null;
     const decodedToken = jwt.decode(token, "top_secret");
     const userEmail = decodedToken.email;
+    const userRole = decodedToken.role;
+    if (userRole !== "admin") {
+      return res.status(401).send({ message: "Access denied" });
+    }
     if (!userEmail) {
       throw "Invalid user ID";
     }

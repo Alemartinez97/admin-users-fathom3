@@ -47,7 +47,6 @@ const authService: Auth = {
                             return done(null, false, { message: "User not found" });
                         }
                         const validate = await isValidPassword(user.password, password);
-                        console.log(validate);
                         if (!validate) {
                             console.error("Wrong password");
                             return done(null, false);
@@ -93,12 +92,14 @@ const authService: Auth = {
     login: async (req: FastifyRequest | any, res: FastifyReply, next: any): Promise<any> => {
         try {
             const { body: user } = req;
+            const response = await userService.getUserByEmail(user.email);
             let token;
             req.login(user, { session: false }, async (err: Error) => {
                 if (err) return next(err);
                 const body = {
-                    _id: user.dni,
+                    _id: response?.dni,
                     email: user.email,
+                    role: response?.role,
                     iat: moment().unix(),
                     exp: moment().add(500, "minutes").unix(),
                 };

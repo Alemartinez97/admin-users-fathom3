@@ -20,3 +20,12 @@ export const login = async (req: FastifyRequest, res: FastifyReply, next: any) =
         res.status(500).send({ error: "Error al iniciar sesion" });
     }
 }
+
+export const protectedRoute = async (req: FastifyRequest, res: FastifyReply, next: any) => {
+    try {
+        res.status(200).send({ message: 'Valid token' });
+    } catch (error) {
+        console.error(error);
+        res.status(401).send({ error: "Token expired" });
+    }
+}

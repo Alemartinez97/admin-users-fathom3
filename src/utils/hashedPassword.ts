@@ -1,10 +1,11 @@
 const bcrypt = require("bcrypt");
 
 export const hashedPassword = async function (password: string) {
-    return bcrypt
-        .hash(password, 10)
-        .then(async (hash: string) => {
-            return hash;
-        })
-        .catch((err: Error) => console.error(err.message))
+    try {
+        const response = await bcrypt.hash(password, 10);
+        console.log("response: ", response);
+        return response;
+    } catch (err) {
+        console.error(err);
+    }
 };

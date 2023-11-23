@@ -1,6 +1,6 @@
 const passport = require("passport");
 const { getAllUsers, getUserById, createUser, updateUser, deleteUser } = require("../controllers/usersController");
-const { signup, login } = require("../controllers/authController");
+const { signup, login, protectedRoute } = require("../controllers/authController");
 const middleware = require("../middleware/auth");
 const fastify = require('fastify')({
   logger: true,
@@ -16,19 +16,7 @@ fastify.post(
   { preValidation: passport.authenticate("signup", { session: false }) },
   signup
 );
-
 fastify.post("/login", { preValidation: passport.authenticate("login", { session: false }) }, login);
-
-fastify.get(
-  "/profile",
-  { preValidation: passport.authenticate("jwt", { session: false }) },
-  (req: any, res: any, next: any) => {
-    res.send({
-      message: "You did it!",
-      user: req.user,
-      token: req.query.secret_token,
-    });
-  }
-);
+fastify.post('/protected-route', { preHandler: [middleware] }, protectedRoute);
 
 export = fastify;
