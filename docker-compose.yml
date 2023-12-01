@@ -1,14 +1,13 @@
-version: '3.8'
+version: "3.9"
+
 services:
-  postgres:
-    image: postgres:10.3
-    restart: always
-    environment:
-      - POSTGRES_USER=alejandro
-      - POSTGRES_PASSWORD=new_password
+  app:
+    container_name: app-dev
+    image: app-dev
+    build:
+      context: .
+      target: development
     volumes:
-      - postgres:/var/lib/postgresql/data
+      - ./src:/app/src
     ports:
-      - '5432:5432'
-volumes:
-  postgres:
+      - 3000:3000
