@@ -3,7 +3,8 @@
 
 ## steps to start the server
     > npm i -s
-    > npm run  start
+    > npx nodemon
+    > npm run test
     
 ## steps to start the server by docker
     > sudo docker-compose -f docker-compose.dev.yml up
