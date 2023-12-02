@@ -28,11 +28,11 @@ curl --location --request POST 'http://127.0.0.1:3000/signup' \
 --header 'Content-Type: application/json' \
 --data-raw '{
     "dni":23892411,
-    "email": "admin1@prisma.io",
+    "email": "admin@prisma.io",
     "name": "Ale",
     "surname": "Martinez",
     "age": 25,  
-    "phone": 23123,
+    "phone": 23123123,
     "password": "admin",
      "role": "admin"
 }'
@@ -47,7 +47,7 @@ curl --location --request GET 'http://127.0.0.1:3000/users' \
 Get User:
 
 ```bash
-curl --location --request GET 'http://127.0.0.1:3000/users/12148223425' \
+curl --location --request GET 'http://127.0.0.1:3000/users/23892411' \
 --header 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOjEyMzQzMjUsImVtYWlsIjoiYTNkZmZlZWRlQHByaXNtYS5pbyIsImlhdCI6MTY5ODIyNTY2MCwiZXhwIjoxNjk4MjI1OTYwfQ.nTMtIcXjYHQLvKjUFUlwIH6qk59zl_fvI8XENJNV31k'
 
 
@@ -58,8 +58,8 @@ curl --location --request POST 'http://127.0.0.1:3000/users' \
 --header 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOjEyMzQzMjUsImVtYWlsIjoiYTNkZmZlZWRlQHByaXNtYS5pbyIsImlhdCI6MTY5ODIyNTY2MCwiZXhwIjoxNjk4MjI1OTYwfQ.nTMtIcXjYHQLvKjUFUlwIH6qk59zl_fvI8XENJNV31k' \
 --header 'Content-Type: application/json' \
 --data-raw '{
-    "dni": 34423414,
-    "email": "ae923wrdw2eae@prisma.io",
+    "dni": 23892411,
+    "email": "admin@prisma.io",
     "name": "Ale",
     "surname": "Martinez",
     "age": 25,
@@ -78,5 +78,5 @@ curl --location --request PUT 'http://127.0.0.1:3000/users/13123423' \
    Delete User:
 
 ```bash
-curl --location --request DELETE 'http://127.0.0.1:3000/users/200233438' \
+curl --location --request DELETE 'http://127.0.0.1:3000/users/23892411' \
 --header 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOjEyMzQzMjUsImVtYWlsIjoiYTNkZmZlZWRlQHByaXNtYS5pbyIsImlhdCI6MTY5ODIyNTY2MCwiZXhwIjoxNjk4MjI1OTYwfQ.nTMtIcXjYHQLvKjUFUlwIH6qk59zl_fvI8XENJNV31k'

@@ -5,7 +5,7 @@ CREATE TABLE "User" (
     "name" TEXT,
     "surname" TEXT,
     "age" INTEGER NOT NULL,
-    "phone" INTEGER NOT NULL,
+    "phone" INTEGER(12) NOT NULL,
     "password" TEXT NOT NULL,
     "role" TEXT NOT NULL,
 
