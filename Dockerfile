@@ -1,17 +1,3 @@
-# FROM node:alpine
-
-# RUN mkdir -p /usr/src/node-app && chown -R node:node /usr/src/node-app
-
-# WORKDIR /usr/src/node-app
-
-# USER node
-
-# COPY --chown=node:node . .
-
-# RUN npm install
-
-# EXPOSE 3002
-
 FROM node:16-alpine
 ENV NODE_ENV development
 # Add a work directory
