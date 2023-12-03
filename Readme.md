@@ -22,6 +22,12 @@ curl --location --request POST 'http://127.0.0.1:3000/login' \
 }'
 
 Signup:
+#### When you register the admin it is necessary to comment on lines 13,14 and 15 of the middleware/auth
+`    
+ if (userRole !== "admin") {
+      return res.status(401).send({ message: "Access denied" });
+    }
+`
 
 ```bash
 curl --location --request POST 'http://127.0.0.1:3000/signup' \
