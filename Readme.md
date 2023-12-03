@@ -8,7 +8,6 @@
     
 ## steps to start the server by docker
     > sudo docker-compose -f docker-compose.dev.yml up
-    > sudo docker-compose -f docker-compose.yml up
 ### Ejemplo de Curl de Postman
 
 Login:
