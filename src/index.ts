@@ -12,12 +12,12 @@ fastify.register(cors, {
 
 const start = async () => {
   try {
-    await fastify.listen({ port: 3000 }, (err: any, address: any) => {
+    await fastify.listen({ port: 4000 }, (err: any, address: any) => {
       if (err) {
         throw err
       }
     })
-    fastify.log.info(`server listening on ${3000}`);
+    fastify.log.info(`server listening on ${4000}`);
   }
   catch (err) {
     fastify.log.error(err);

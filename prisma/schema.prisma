@@ -9,13 +9,32 @@ datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
+// Modelo para representar a los usuarios (que también actúan como clientes)
 model User {
-  dni   Int     @id
-  email String  @unique
-  name  String?
-  surname  String?
-  age   Int
-  phone Int
-  password String
-  role String
+  dni        Int            @id
+  email      String         @unique
+  name       String?
+  surname    String?
+  age        Int
+  phone      Int         // Cambiado a String para manejar números de teléfono
+  password   String
+  role       String
+
+  // Relación uno a muchos con los turnos
+  appointments Appointment[]
+
+  @@map("users")  
+}
+
+// Modelo para representar los turnos
+model Appointment {
+  id         Int      @id @default(autoincrement())
+  date       DateTime
+  type    String   
+
+  userId     Int
+
+  user       User     @relation(fields: [userId], references: [dni])
+
+  @@map("appointments")  
 }

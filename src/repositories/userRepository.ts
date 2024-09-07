@@ -4,7 +4,7 @@ import { PrismaClient } from "@prisma/client";
 const prisma = new PrismaClient();
 const userRepository: User = {
     getAllUsers: async (): Promise<IUserModel[]> => {
-        return await prisma.user.findMany();
+        return await prisma.user.findMany({ include: { appointments: true }, });
     },
 
     getUserById: async (id: number): Promise<IUserModel | null> => {
@@ -12,6 +12,7 @@ const userRepository: User = {
             where: {
                 dni: id,
             },
+            include: { appointments: true }
         })
     },
 
@@ -30,6 +31,10 @@ const userRepository: User = {
     },
 
     updateUser: async (id: number, payload: IUserModel): Promise<IUserModel> => {
+        payload.appointments.update = await payload.appointments?.update?.map(({ where, data }: any) => ({
+            where,
+            data,
+        })) || [];
         return prisma.user.update({
             where: {
                 dni: id,
@@ -39,10 +44,13 @@ const userRepository: User = {
     },
 
     deleteUser: async (id: number): Promise<IUserModel> => {
+        await prisma.appointment.deleteMany({
+            where: { userId: id }
+        });
         return prisma.user.delete({
             where: {
                 dni: id,
-            },
+            }
         })
     }
 }

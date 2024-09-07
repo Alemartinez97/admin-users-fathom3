@@ -23,7 +23,9 @@ const authService: Auth = {
                 },
                 async (req: FastifyRequest, email: string, password: string, done: any) => {
                     try {
-                        const body = req.body as IUserModel;
+                        let body = req.body as IUserModel;
+                        body.appointments = { "create": [] };
+                        console.log(body);
                         await userService.createUser(body);
                         return done(null, email, { message: "Signup success" });
                     } catch (e) {
@@ -101,7 +103,7 @@ const authService: Auth = {
                     email: user.email,
                     role: response?.role,
                     iat: moment().unix(),
-                    exp: moment().add(500, "minutes").unix(),
+                    exp: moment().add(1000, "minutes").unix(),
                 };
                 token = jwt.sign(body, SECRET_KEY);
             });

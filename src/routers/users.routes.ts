@@ -1,5 +1,6 @@
 const passport = require("passport");
 const { getAllUsers, getUserById, createUser, updateUser, deleteUser } = require("../controllers/usersController");
+const { createAppointment } = require("../controllers/appointmentController");
 const { signup, login, protectedRoute } = require("../controllers/authController");
 const middleware = require("../middleware/auth");
 const fastify = require('fastify')({
@@ -11,6 +12,7 @@ fastify.get('/users/:id', { preHandler: [middleware] }, getUserById);
 fastify.post('/users', { preHandler: [middleware] }, createUser);
 fastify.put('/users/:id', { preHandler: [middleware] }, updateUser);
 fastify.delete('/users/:id', { preHandler: [middleware] }, deleteUser);
+fastify.post('/create-appointment', { preHandler: [middleware] }, createAppointment);
 fastify.post(
   "/signup",
   { preValidation: passport.authenticate("signup", { session: false }) },

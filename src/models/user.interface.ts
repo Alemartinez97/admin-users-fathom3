@@ -7,7 +7,6 @@ export interface User {
     deleteUser(userId: number): Promise<IUserModel>;
 }
 
-
 export interface IUserModel {
     name: string | null,
     dni: number,
@@ -17,4 +16,5 @@ export interface IUserModel {
     age: number,
     password: string,
     role: string
+    appointments?: any;
 }
